@@ -1,0 +1,42 @@
+html {
+	scroll-behavior: smooth;
+}
+body {
+	background-color: #020617;
+	color: #dae2fd;
+	-webkit-font-smoothing: antialiased;
+}
+.glass-panel {
+	background: rgba(15, 23, 42, 0.4);
+	backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.neon-glow {
+	box-shadow: 0 20px 40px -15px rgba(173, 198, 255, 0.1);
+}
+.syntax-keyword {
+	color: #cebdff;
+}
+.syntax-string {
+	color: #4edea3;
+}
+.syntax-function {
+	color: #adc6ff;
+}
+.syntax-comment {
+	color: #8c909f;
+}
+.cursor-blink {
+	display: inline-block;
+	width: 8px;
+	height: 18px;
+	background-color: #4edea3;
+	margin-left: 4px;
+	vertical-align: middle;
+	animation: blink 1s infinite;
+}
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}

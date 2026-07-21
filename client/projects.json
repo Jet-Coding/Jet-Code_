@@ -1,0 +1,31 @@
+{
+	"projects": [
+		{
+			"year": "2024",
+			"system": "SYSTEM_ARCH",
+			"title": "HyperScale Engine",
+			"desc": "A distributed computing framework designed for real-time data ingestion and processing at sub-millisecond latency. Built to handle 1M+ req/sec.",
+			"img": "https://lh3.googleusercontent.com/aida-public/AB6AXuDVXKZM6Hyhet8hALdfUIHsNOLQKbsV69zZk3U23GmX0v179MHH14F3wRzK0otUXWevF4ZdAHqBEP5Xz11XzNa6PaIGbk0sMc1UgJpgxZo113Vn-zxJglDyP0xUuKuJL43aEn4U_vtfoFV6frImdDdsjzlD2nGLzfBFRm_J2oJaLqzppX_PCsY77HAVO_TZ4a-jzASQnPueYUBkpbuB01xwy8Fqai4civayb0ZROjUNT2VZPmx58hAArxV79-HcOlIAEI-9OwZaZg",
+			"tags": ["Go", "Kubernetes", "gRPC"],
+			"link": "#"
+		},
+		{
+			"year": "2023",
+			"system": "WEB_INTERFACE",
+			"title": "Neon IDE",
+			"desc": "A browser-based code editor with native performance, featuring a custom syntax highlighting engine and collaborative workspace.",
+			"img": "https://lh3.googleusercontent.com/aida-public/AB6AXuB5v4rjCNFgdI2sFwnp8_LE46PMDxc2_t0m7ZJqS2Km0uli7aRD204Layqmp2JwnQOVrHABzWRY8dDKKO7yjEcTHt65Cy0NRZsZzipqkLm3aO7Z8OIMOTfd0YNDIrXcPPMwilRUyNknh7OjNV63koVv9DUkFtXjSi7evlDAmbQ7K7DFf0MVmk-wB6shd9fSA36HjHquYthnIjCv0dOiEu_u-efpJiwo8RJ967QJfqoVW_1clcGpmtrnf-O1nciPVCj9EWNTPUqI7w",
+			"tags": ["TypeScript", "Rust", "WebAssembly"],
+			"link": "#"
+		},
+		{
+			"year": "2022",
+			"system": "INFRASTRUCTURE",
+			"title": "Obsidian Mesh",
+			"desc": "Service mesh implementation focused on security-first communication and automated traffic shaping for hybrid cloud environments.",
+			"img": "https://lh3.googleusercontent.com/aida-public/AB6AXuAQMJkofRHa8WdyDC4Y9nc68n53znGaK2TtLKqkobupvpN_xzXjWZHPUERYd7G-3EYmdc5ggN2WKH__m955w72SGGwI5D4b-nk7LxMV4VsVprr3mpNh5lk-JaHAUx5e3EXxCC877L8CT0VzypFxZTSjb29B5GF8PKAZa-gk2PXdqncSwapw8uoY8rzyVYwvLmyvNAjPRL-86pr7EBTB5jRCEFBaVI3KWbbydgyV91_fmkIvTgRUWyPufy-zPlvigiN9aTIGgVROoA",
+			"tags": ["Java", "Terraform", "Docker"],
+			"link": "#"
+		}
+	]
+}

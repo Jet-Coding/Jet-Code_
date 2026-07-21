@@ -1,0 +1,742 @@
+<!doctype html>
+<html class="dark" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>JET CODE</title>
+		<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&family=Geist:wght@700;800&display=swap"
+			rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+			rel="stylesheet" />
+
+		<style>
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				background-color: #020617;
+				color: #dae2fd;
+				-webkit-font-smoothing: antialiased;
+			}
+			.glass-panel {
+				background: rgba(15, 23, 42, 0.4);
+				backdrop-filter: blur(12px);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
+			.neon-glow {
+				box-shadow: 0 20px 40px -15px rgba(173, 198, 255, 0.1);
+			}
+			.syntax-keyword {
+				color: #cebdff;
+			}
+			.syntax-string {
+				color: #4edea3;
+			}
+			.syntax-function {
+				color: #adc6ff;
+			}
+			.syntax-comment {
+				color: #8c909f;
+			}
+			.cursor-blink {
+				display: inline-block;
+				width: 8px;
+				height: 18px;
+				background-color: #4edea3;
+				margin-left: 4px;
+				vertical-align: middle;
+				animation: blink 1s infinite;
+			}
+			@keyframes blink {
+				50% {
+					opacity: 0;
+				}
+			}
+		</style>
+		<script id="tailwind-config">
+			tailwind.config = {
+				darkMode: "class",
+				theme: {
+					extend: {
+						colors: {
+							"on-primary-fixed": "#001a42",
+							"surface-container-low": "#131b2e",
+							surface: "#0b1326",
+							"on-surface": "#dae2fd",
+							"on-primary-container": "#00285d",
+							"surface-container-high": "#222a3d",
+							"on-secondary": "#003824",
+							outline: "#8c909f",
+							"secondary-fixed": "#6ffbbe",
+							"tertiary-fixed": "#e8ddff",
+							primary: "#adc6ff",
+							"primary-fixed-dim": "#adc6ff",
+							"on-tertiary-fixed-variant": "#4f319c",
+							"on-secondary-container": "#00311f",
+							"on-secondary-fixed-variant": "#005236",
+							"primary-fixed": "#d8e2ff",
+							tertiary: "#cebdff",
+							"on-tertiary": "#381385",
+							"outline-variant": "#424754",
+							"surface-dim": "#0b1326",
+							"on-error": "#690005",
+							background: "#0b1326",
+							"surface-container-lowest": "#060e20",
+							"surface-variant": "#2d3449",
+							"surface-container": "#171f33",
+							error: "#ffb4ab",
+							"on-primary": "#002e6a",
+							"surface-bright": "#31394d",
+							"secondary-container": "#00a572",
+							"on-background": "#dae2fd",
+							"surface-tint": "#adc6ff",
+							"inverse-on-surface": "#283044",
+							"on-primary-fixed-variant": "#004395",
+							"on-tertiary-container": "#31057e",
+							"tertiary-fixed-dim": "#cebdff",
+							"inverse-primary": "#005ac2",
+							"surface-container-highest": "#2d3449",
+							"inverse-surface": "#dae2fd",
+							"error-container": "#93000a",
+							secondary: "#4edea3",
+							"on-surface-variant": "#c2c6d6",
+							"tertiary-container": "#9b7fed",
+							"primary-container": "#4d8eff",
+							"on-secondary-fixed": "#002113",
+							"on-error-container": "#ffdad6",
+							"secondary-fixed-dim": "#4edea3",
+							"on-tertiary-fixed": "#21005e",
+						},
+						borderRadius: {
+							DEFAULT: "0.125rem",
+							lg: "0.25rem",
+							xl: "0.5rem",
+							full: "0.75rem",
+						},
+						spacing: {
+							"margin-desktop": "80px",
+							unit: "4px",
+							"margin-mobile": "20px",
+							"container-max": "1280px",
+							gutter: "24px",
+						},
+						fontFamily: {
+							"display-lg": ["Geist"],
+							"body-md": ["Inter"],
+							"code-sm": ["JetBrains Mono"],
+							"body-lg": ["Inter"],
+							"display-lg-mobile": ["Geist"],
+							"headline-md": ["Geist"],
+							"label-caps": ["JetBrains Mono"],
+						},
+						fontSize: {
+							"display-lg": [
+								"64px",
+								{
+									lineHeight: "1.1",
+									letterSpacing: "-0.04em",
+									fontWeight: "700",
+								},
+							],
+							"body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+							"code-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+							"body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+							"display-lg-mobile": [
+								"40px",
+								{
+									lineHeight: "1.2",
+									letterSpacing: "-0.02em",
+									fontWeight: "700",
+								},
+							],
+							"headline-md": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+							"label-caps": [
+								"12px",
+								{
+									lineHeight: "1.0",
+									letterSpacing: "0.1em",
+									fontWeight: "600",
+								},
+							],
+						},
+					},
+				},
+			};
+		</script>
+	</head>
+	<body class="bg-background text-on-background selection:bg-primary/30">
+		<!-- Header -->
+		<header
+			class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-surface/40 backdrop-blur-xl shadow-sm">
+			<!-- TopNavBar -->
+			<nav
+				class="flex justify-between items-center h-20 px-4 md:px-8 max-w-7xl mx-auto w-full">
+				<!-- Brand Logo -->
+				<a
+					href="index.html"
+					class="flex items-center text-headline-md tracking-tighter text-on-surface no-underline">
+					<img
+						src="assets/images/logo.png"
+						alt="Jet Code Logo"
+						class="w-12 h-12 mr-2" />
+					<span class="font-display">Jet Code_</span>
+				</a>
+
+				<!-- Desktop Nav (Hidden on Mobile) -->
+				<div class="hidden md:flex items-center gap-8">
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="index.html"
+						>Home</a
+					>
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="public/projects.html"
+						>Projects</a
+					>
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="public/about.html"
+						>About</a
+					>
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="public/contact.html"
+						>Contact</a
+					>
+					<button
+						class="bg-primary text-on-primary px-6 py-2 rounded-lg font-body-md hover:scale-95 transition-transform">
+						Join
+					</button>
+				</div>
+
+				<!-- Mobile Hamburger Button (Hidden on Desktop) -->
+				<button
+					aria-label="Toggle Menu"
+					class="md:hidden p-2"
+					id="menu-toggle"
+					onclick="toggleMenu()">
+					<div class="flex flex-col gap-1.5 items-end">
+						<span
+							class="w-8 h-0.5 bg-primary transition-all duration-300 origin-center"></span>
+						<span
+							class="w-5 h-0.5 bg-primary transition-all duration-300 origin-center"></span>
+						<span
+							class="w-6 h-0.5 bg-primary transition-all duration-300 origin-center"></span>
+					</div>
+				</button>
+			</nav>
+		</header>
+
+		<!-- Mobile Overlay Menu -->
+		<nav
+			id="mobile-menu"
+			class="fixed inset-0 z-40 bg-surface/98 backdrop-blur-2xl opacity-0 pointer-events-none translate-y-[-10px] transition-all duration-300 ease-in-out flex flex-col">
+			<!-- Overlay Header -->
+			<div
+				class="flex justify-between items-center h-20 px-4 md:px-8 w-full border-b border-white/5">
+				<div class="font-code-sm text-secondary-fixed flex items-center gap-2">
+					<span class="w-3 h-3 rounded-full bg-error"></span>
+					<span class="w-3 h-3 rounded-full bg-[#facc15]"></span>
+					<span class="w-3 h-3 rounded-full bg-secondary"></span>
+					<span class="ml-2">navigation.sh</span>
+				</div>
+				<button
+					aria-label="Close Menu"
+					class="p-2 hover:bg-white/5 transition-colors"
+					onclick="toggleMenu()">
+					<span class="text-2xl text-primary">✕</span>
+				</button>
+			</div>
+
+			<!-- Mobile Links -->
+			<div class="flex-1 px-4 py-12 flex flex-col space-y-6 overflow-y-auto">
+				<div class="font-code-sm text-outline text-sm mb-2">
+					// Select a destination
+				</div>
+				<ul class="space-y-4">
+					<li>
+						<a
+							class="font-display text-3xl text-on-surface-variant hover:text-primary transition-colors no-underline"
+							href="index.html"
+							onclick="toggleMenu()"
+							>Home</a
+						>
+					</li>
+					<li>
+						<a
+							class="font-display text-3xl text-on-surface-variant hover:text-primary transition-colors no-underline"
+							href="public/projects.html"
+							onclick="toggleMenu()"
+							>Projects</a
+						>
+					</li>
+					<li>
+						<a
+							class="font-display text-3xl text-on-surface-variant hover:text-primary transition-colors no-underline"
+							href="public/about.html"
+							onclick="toggleMenu()"
+							>About</a
+						>
+					</li>
+					<li>
+						<a
+							class="font-display text-3xl text-on-surface-variant hover:text-primary transition-colors no-underline"
+							href="public/contact.html"
+							onclick="toggleMenu()"
+							>Contact</a
+						>
+					</li>
+				</ul>
+				<div class="pt-8 mt-auto">
+					<div class="font-code-sm text-outline text-sm mb-2">
+						// execute primary action
+					</div>
+					<button
+						class="w-full bg-primary text-on-primary py-4 px-6 rounded-lg font-display text-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+						Join_
+					</button>
+				</div>
+			</div>
+		</nav>
+
+		<main>
+			<!-- Hero Section: Code Editor Feel -->
+			<section
+				class="relative pt-24 pb-32 px-margin-desktop max-w-container-max mx-auto overflow-hidden">
+				<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+					<div class="lg:col-span-6 space-y-8 reveal">
+						<div
+							class="inline-block px-3 py-1 bg-primary/10 border border-primary/20 text-primary font-code-sm text-code-sm rounded-lg glow-pulse">
+							SYSTEM.READY()
+						</div>
+						<h1 class="font-display-lg text-display-lg">
+							Engineering Digital
+							<span class="text-secondary">Masterpieces.</span>
+						</h1>
+						<p
+							class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+							Specializing in high-performance web systems and intuitive UI
+							engineering. Transforming complex logic into elegant user
+							experiences.
+						</p>
+						<div class="flex gap-4">
+							<button
+								class="bg-primary text-on-primary-fixed px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:scale-95 transition-transform shimmer-btn">
+								View Source
+								<span class="material-symbols-outlined">terminal</span>
+							</button>
+							<button
+								class="border border-outline-variant/30 px-8 py-4 rounded-xl font-bold hover:bg-surface-variant/20 transition-all">
+								Contact
+							</button>
+						</div>
+					</div>
+					<!-- Terminal Component with Parallax -->
+					<div class="lg:col-span-6 reveal">
+						<div
+							class="glass-panel neon-glow rounded-xl overflow-hidden shadow-2xl transform transition-transform duration-200 ease-out"
+							id="parallax-terminal">
+							<!-- IDE Header -->
+							<div
+								class="bg-surface-container-high px-4 py-3 flex items-center justify-between border-b border-white/5">
+								<div class="flex gap-2">
+									<div class="w-3 h-3 rounded-full bg-error"></div>
+									<div class="w-3 h-3 rounded-full bg-secondary"></div>
+									<div class="w-3 h-3 rounded-full bg-primary"></div>
+								</div>
+								<div
+									class="font-code-sm text-code-sm text-outline flex items-center gap-2">
+									<span class="material-symbols-outlined text-sm"
+										>description</span
+									>
+									developer.ts
+								</div>
+								<div class="w-12"></div>
+							</div>
+							<!-- IDE Content -->
+							<div
+								class="p-6 font-code-sm text-code-sm leading-relaxed overflow-x-auto bg-surface-container-lowest">
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>1</span
+									>
+									<div class="typing-line" style="animation-delay: 0.1s">
+										<code
+											><span class="syntax-keyword">class</span>
+											<span class="syntax-function">JetCode_</span> {</code
+										>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>2</span
+									>
+									<div class="typing-line" style="animation-delay: 0.6s">
+										<code class="pl-4"
+											><span class="syntax-keyword">private</span> role:
+											<span class="syntax-string">"Fullstack Engineer"</span
+											>;</code
+										>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>3</span
+									>
+									<div class="typing-line" style="animation-delay: 1.1s">
+										<code class="pl-4"
+											><span class="syntax-keyword">public</span> skills:
+											<span class="syntax-keyword">string</span>[] = [</code
+										>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>4</span
+									>
+									<div class="typing-line" style="animation-delay: 1.6s">
+										<code class="pl-8"
+											><span class="syntax-string">"MySQL"</span>,
+											<span class="syntax-string">"Express"</span>,
+											<span class="syntax-string">"Node.js"</span>,
+											<span class="syntax-string">"HTML/CSS"</span>,
+											<span class="syntax-string">"JavaScript"</span></code
+										>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>5</span
+									>
+									<div class="typing-line" style="animation-delay: 2.1s">
+										<code class="pl-4">];</code>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>6</span
+									>
+									<div class="typing-line" style="animation-delay: 2.3s">
+										<code> </code>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>7</span
+									>
+									<div class="typing-line" style="animation-delay: 2.5s">
+										<code class="pl-4"
+											><span class="syntax-function">constructor</span>()
+											{</code
+										>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>8</span
+									>
+									<div class="typing-line" style="animation-delay: 3s">
+										<code class="pl-8"
+											><span class="syntax-keyword">this</span>.<span
+												class="syntax-function"
+												>initiateExcellence</span
+											>();</code
+										>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>9</span
+									>
+									<div class="typing-line" style="animation-delay: 3.5s">
+										<code class="pl-4">}</code>
+									</div>
+								</div>
+								<div class="flex gap-4">
+									<span class="text-outline-variant text-right select-none w-4"
+										>10</span
+									>
+									<div class="typing-line" style="animation-delay: 4s">
+										<code>}<span class="cursor-blink"></span></code>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="py-20 px-margin-desktop max-w-container-max mx-auto">
+				<div class="mb-16">
+					<h2 class="font-headline-md text-headline-md mb-4">
+						Core Expertise & Tooling
+					</h2>
+					<div class="h-1 w-24 bg-primary"></div>
+				</div>
+				<div
+					id="languages-grid"
+					class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"></div>
+			</section>
+
+			<section class="py-20 bg-surface-container-lowest/50">
+				<div class="px-margin-desktop max-w-container-max mx-auto">
+					<div class="flex justify-between items-end mb-16">
+						<div>
+							<h2 class="font-headline-md text-headline-md mb-4">
+								Latest Work
+							</h2>
+							<p class="font-body-md text-body-md text-on-surface-variant">
+								A selection of engineered solutions.
+							</p>
+						</div>
+						<a
+							class="text-primary font-bold flex items-center gap-2 hover:underline"
+							href="public/projects.html">
+							View All Projects
+							<span class="material-icons-outlined">arrow_forward</span>
+						</a>
+					</div>
+					<div
+						id="projects-grid"
+						class="grid grid-cols-1 md:grid-cols-2 gap-12"></div>
+				</div>
+			</section>
+
+			<section class="py-20 px-margin-desktop max-w-container-max mx-auto">
+				<div class="mb-16">
+					<h2 class="font-headline-md text-headline-md mb-4">
+						Tutorials & Guides
+					</h2>
+					<p class="font-body-md text-body-md text-on-surface-variant">
+						Sharing backend engineering, security, and full-stack architecture
+						principles.
+					</p>
+				</div>
+				<div
+					id="tutorials-grid"
+					class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+			</section>
+
+			<section
+				class="py-32 px-margin-desktop max-w-container-max mx-auto text-center">
+				<div
+					class="glass-panel p-16 rounded-3xl neon-glow relative overflow-hidden">
+					<div
+						class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+					<div
+						class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+					<h2
+						class="font-display-lg text-headline-md md:text-display-lg mb-8 relative z-10">
+						Ready to build the <span class="text-primary">next big thing?</span>
+					</h2>
+					<div
+						class="flex flex-col md:flex-row justify-center gap-6 relative z-10">
+						<button
+							class="bg-primary text-on-primary-fixed px-10 py-5 rounded-xl font-bold text-lg hover:scale-95 transition-transform flex items-center justify-center gap-2">
+							Start a Project
+							<span class="material-icons-outlined">launch</span>
+						</button>
+						<button
+							class="border border-outline-variant/30 px-10 py-5 rounded-xl font-bold text-lg hover:bg-surface-variant/20 transition-all">
+							Let's Talk
+						</button>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer
+			class="flex flex-col md:flex-row justify-between items-center py-margin-mobile px-margin-desktop w-full border-t border-outline-variant/20 bg-surface-container-lowest font-code-sm text-code-sm">
+			<div
+				class="max-w-container-max mx-auto w-full px-margin-desktop py-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+				<div class="md:col-span-2 space-y-6">
+					<div
+						class="font-display-lg text-headline-md tracking-tighter text-on-surface">
+						Jet Code
+					</div>
+					<div class="text-secondary">
+						© 2024 Jet Code_. Engineered with precision.
+					</div>
+					<div class="flex flex-wrap gap-4 text-outline">
+						<a class="hover:text-primary transition-colors" href="#"
+							>Terms of Use</a
+						>
+						<span>|</span>
+						<a class="hover:text-primary transition-colors" href="#"
+							>Privacy Policy</a
+						>
+					</div>
+				</div>
+				<div class="md:col-span-2">
+					<h4
+						class="text-on-surface font-bold mb-6 uppercase tracking-widest text-xs">
+						Connect
+					</h4>
+					<div class="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-8">
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+							</svg>
+							Facebook
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+								<path
+									d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+								<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+							</svg>
+							Instagram
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<line x1="4" x2="20" y1="9" y2="9"></line>
+								<line x1="4" x2="20" y1="15" y2="15"></line>
+								<line x1="10" x2="8" y1="3" y2="21"></line>
+								<line x1="16" x2="14" y1="3" y2="21"></line>
+							</svg>
+							TikTok
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+							</svg>
+							Pinterest
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+							</svg>
+							Twitter
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.11 1 12 1 12s0 3.89.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.89 23 12 23 12s0-3.89-.46-5.58z"></path>
+								<polygon
+									points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>
+							</svg>
+							YouTube
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+							</svg>
+							GitHub
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+								<rect height="12" width="4" x="2" y="9"></rect>
+								<circle cx="4" cy="4" r="2"></circle>
+							</svg>
+							LinkedIn
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#"
+							>Source Code</a
+						>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#"
+							>Status</a
+						>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script src="public/js/app.js"></script>
+	</body>
+</html>
