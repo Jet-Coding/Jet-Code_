@@ -1,2 +1,2 @@
 # Jet-Code_
-Jer Code Portfolio.
+Jet Code Portfolio.
