@@ -1,0 +1,736 @@
+<!doctype html>
+<html class="dark" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>JET CODE</title>
+		<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Geist:wght@700&amp;display=swap"
+			rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet" />
+		<script id="tailwind-config">
+			tailwind.config = {
+				darkMode: "class",
+				theme: {
+					extend: {
+						colors: {
+							"on-primary-fixed": "#001a42",
+							"surface-container-low": "#131b2e",
+							surface: "#0b1326",
+							"on-surface": "#dae2fd",
+							"on-primary-container": "#00285d",
+							"surface-container-high": "#222a3d",
+							"on-secondary": "#003824",
+							outline: "#8c909f",
+							"secondary-fixed": "#6ffbbe",
+							"tertiary-fixed": "#e8ddff",
+							primary: "#adc6ff",
+							"primary-fixed-dim": "#adc6ff",
+							"on-tertiary-fixed-variant": "#4f319c",
+							"on-secondary-container": "#00311f",
+							"on-secondary-fixed-variant": "#005236",
+							"primary-fixed": "#d8e2ff",
+							tertiary: "#cebdff",
+							"on-tertiary": "#381385",
+							"outline-variant": "#424754",
+							"surface-dim": "#0b1326",
+							"on-error": "#690005",
+							background: "#0b1326",
+							"surface-container-lowest": "#060e20",
+							"surface-variant": "#2d3449",
+							"surface-container": "#171f33",
+							error: "#ffb4ab",
+							"on-primary": "#002e6a",
+							"surface-bright": "#31394d",
+							"secondary-container": "#00a572",
+							"on-background": "#dae2fd",
+							"surface-tint": "#adc6ff",
+							"inverse-on-surface": "#283044",
+							"on-primary-fixed-variant": "#004395",
+							"on-tertiary-container": "#31057e",
+							"tertiary-fixed-dim": "#cebdff",
+							"inverse-primary": "#005ac2",
+							"surface-container-highest": "#2d3449",
+							"inverse-surface": "#dae2fd",
+							"error-container": "#93000a",
+							secondary: "#4edea3",
+							"on-surface-variant": "#c2c6d6",
+							"tertiary-container": "#9b7fed",
+							"primary-container": "#4d8eff",
+							"on-secondary-fixed": "#002113",
+							"on-error-container": "#ffdad6",
+							"secondary-fixed-dim": "#4edea3",
+							"on-tertiary-fixed": "#21005e",
+						},
+						borderRadius: {
+							DEFAULT: "0.125rem",
+							lg: "0.25rem",
+							xl: "0.5rem",
+							full: "0.75rem",
+						},
+						spacing: {
+							"margin-desktop": "80px",
+							unit: "4px",
+							"margin-mobile": "20px",
+							"container-max": "1280px",
+							gutter: "24px",
+						},
+						fontFamily: {
+							"display-lg": ["Geist"],
+							"body-md": ["Inter"],
+							"code-sm": ["JetBrains Mono"],
+							"body-lg": ["Inter"],
+							"display-lg-mobile": ["Geist"],
+							"headline-md": ["Geist"],
+							"label-caps": ["JetBrains Mono"],
+						},
+						fontSize: {
+							"display-lg": [
+								"64px",
+								{
+									lineHeight: "1.1",
+									letterSpacing: "-0.04em",
+									fontWeight: "700",
+								},
+							],
+							"body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+							"code-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+							"body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+							"display-lg-mobile": [
+								"40px",
+								{
+									lineHeight: "1.2",
+									letterSpacing: "-0.02em",
+									fontWeight: "700",
+								},
+							],
+							"headline-md": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+							"label-caps": [
+								"12px",
+								{
+									lineHeight: "1.0",
+									letterSpacing: "0.1em",
+									fontWeight: "600",
+								},
+							],
+						},
+					},
+				},
+			};
+		</script>
+		<style>
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				background-color: #020617;
+				color: #dae2fd;
+			}
+			.glass-panel {
+				background: rgba(15, 23, 42, 0.4);
+				backdrop-filter: blur(12px);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
+			.neon-underglow-primary {
+				box-shadow: 0 20px 40px -20px rgba(173, 198, 255, 0.1);
+			}
+			.neon-underglow-secondary {
+				box-shadow: 0 20px 40px -20px rgba(78, 222, 163, 0.1);
+			}
+			.terminal-header::before {
+				content: "";
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				background: #ff5f56;
+				border-radius: 50%;
+				margin-right: 6px;
+				box-shadow:
+					16px 0 0 #ffbd2e,
+					32px 0 0 #27c93f;
+			}
+			.cursor-blink {
+				animation: blink 1s step-end infinite;
+			}
+			@keyframes blink {
+				from,
+				to {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0;
+				}
+			}
+		</style>
+	</head>
+	<body class="font-body-md text-body-md selection:bg-primary/30">
+		<!-- Header -->
+		<header
+			class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-surface/40 backdrop-blur-xl shadow-sm">
+			<!-- TopNavBar -->
+			<nav
+				class="flex justify-between items-center h-20 px-4 md:px-8 max-w-7xl mx-auto w-full">
+				<!-- Brand Logo -->
+				<a
+					href="../index.html"
+					class="flex items-center text-headline-md tracking-tighter text-on-surface no-underline">
+					<img
+						src="../assets/images/logo.png"
+						alt="Jet Code Logo"
+						class="w-12 h-12 mr-2" />
+					<span class="font-display">Jet Code_</span>
+				</a>
+
+				<!-- Desktop Nav (Hidden on Mobile) -->
+				<div class="hidden md:flex items-center gap-8">
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="../index.html"
+						>Home</a
+					>
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="projects.html"
+						>Projects</a
+					>
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="about.html"
+						>About</a
+					>
+					<a
+						class="font-body-md text-on-surface-variant hover:text-primary transition-colors no-underline"
+						href="contact.html"
+						>Contact</a
+					>
+					<button
+						class="bg-primary text-on-primary px-6 py-2 rounded-lg font-body-md hover:scale-95 transition-transform">
+						Join
+					</button>
+				</div>
+
+				<!-- Mobile Hamburger Button (Hidden on Desktop) -->
+				<button
+					aria-label="Toggle Menu"
+					class="md:hidden p-2"
+					id="menu-toggle"
+					onclick="toggleMenu()">
+					<div class="flex flex-col gap-1.5 items-end">
+						<span
+							class="w-8 h-0.5 bg-primary transition-all duration-300 origin-center"></span>
+						<span
+							class="w-5 h-0.5 bg-primary transition-all duration-300 origin-center"></span>
+						<span
+							class="w-6 h-0.5 bg-primary transition-all duration-300 origin-center"></span>
+					</div>
+				</button>
+			</nav>
+		</header>
+		<main
+			class="relative pt-24 pb-32 px-margin-desktop max-w-container-max mx-auto overflow-hidden">
+			<!-- About Hero & Terminal -->
+			<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+				<div class="lg:col-span-7 space-y-8">
+					<div class="space-y-4">
+						<span
+							class="font-code-sm text-code-sm text-secondary uppercase tracking-widest"
+							>System Architecture // About Me</span
+						>
+						<h1 class="font-display-lg text-display-lg text-on-surface">
+							Engineering <span class="text-primary">Digital Foundations.</span>
+						</h1>
+					</div>
+					<p
+						class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+						I am a full-stack engineer specialized in building high-performance,
+						scalable web architectures. My approach blends technical precision
+						with a product-driven mindset, ensuring every line of code serves a
+						purpose.
+					</p>
+					<div class="flex gap-4">
+						<div class="flex flex-col border-l-2 border-outline-variant pl-4">
+							<span class="font-code-sm text-code-sm text-secondary">08+</span>
+							<span class="font-label-caps text-label-caps text-outline"
+								>YEARS EXP.</span
+							>
+						</div>
+						<div class="flex flex-col border-l-2 border-outline-variant pl-4">
+							<span class="font-code-sm text-code-sm text-secondary">42+</span>
+							<span class="font-label-caps text-label-caps text-outline"
+								>PROJECTS DEPLOYED</span
+							>
+						</div>
+					</div>
+				</div>
+				<div class="lg:col-span-5">
+					<div class="glass-panel rounded-lg overflow-hidden shadow-2xl">
+						<div
+							class="bg-surface-container-highest px-4 py-3 flex items-center justify-between border-b border-white/5">
+							<div class="terminal-header"></div>
+							<div class="font-code-sm text-code-sm text-outline">
+								developer_bio.sh
+							</div>
+						</div>
+						<div
+							class="p-6 font-code-sm text-code-sm text-on-surface-variant space-y-4">
+							<p><span class="text-secondary">$</span> whoami</p>
+							<p class="text-on-surface">
+								A specialized software architect focused on React, Node.js, and
+								Cloud Infrastructure. Driven by clean code and system
+								efficiency.
+							</p>
+							<p><span class="text-secondary">$</span> ls interests/</p>
+							<p class="text-primary">
+								Distributed Systems, UI/UX Design, Functional Programming,
+								DevOps Automation
+							</p>
+							<p><span class="text-secondary">$</span> current_status</p>
+							<p class="text-on-surface">
+								Architecting next-gen developer tools
+								<span
+									class="inline-block w-2 h-4 bg-primary align-middle cursor-blink ml-1"></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Experience Timeline -->
+			<section class="space-y-16">
+				<div class="text-center space-y-4">
+					<h2 class="font-display-lg text-headline-md text-on-surface">
+						Professional Trajectory
+					</h2>
+					<div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+				</div>
+				<div class="relative space-y-12">
+					<!-- Timeline Vertical Line -->
+					<div
+						class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-outline-variant/30 -translate-x-1/2 hidden md:block"></div>
+					<!-- Exp 1 -->
+					<div
+						class="relative flex flex-col md:flex-row items-center justify-between group">
+						<div class="md:w-[45%] mb-8 md:mb-0">
+							<div
+								class="glass-panel p-8 rounded-xl neon-underglow-primary group-hover:border-primary/50 transition-all">
+								<span class="font-code-sm text-code-sm text-primary mb-2 block"
+									>Jan 2022 — Present</span
+								>
+								<h3 class="font-headline-md text-headline-md text-on-surface">
+									Senior Systems Architect
+								</h3>
+								<p class="font-code-sm text-code-sm text-secondary mb-4">
+									TechNexus Solutions
+								</p>
+								<p class="font-body-md text-body-md text-on-surface-variant">
+									Leading the migration of legacy monolithic architectures to
+									modern microservices. Optimized deployment pipelines reducing
+									build times by 65%.
+								</p>
+							</div>
+						</div>
+						<div
+							class="absolute left-[-8px] md:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-surface -translate-x-1/2 z-10 hidden md:block"></div>
+						<div class="md:w-[45%] text-right hidden md:block">
+							<img
+								class="w-full h-48 object-cover rounded-xl opacity-40 grayscale hover:grayscale-0 transition-all duration-500"
+								data-alt="A sophisticated, high-tech server room with glowing blue LED indicator lights reflected on polished dark flooring. The atmosphere is quiet, professional, and technologically advanced, echoing a modern data center environment. The lighting is low-key, emphasizing the structural symmetry of the server racks and the technical mastery of a high-end enterprise environment."
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCYFTmnR4Lu4A4Pnb_wBWS0ofVqTmaXogYMJ6YZtN1JJC7EzWgOYU1HhzeiJL2JFIi3KcGApQW5XSJ8LfoIKxpomgf2ydikx7nJBtXk_8lEJRh5I7BF-M_9SDMrHXA09QnCHEO-zPJ8mv00bQ5G0HZbjjsFfG81-kPdJN5z92-rTM-Fjj2zvDPDyBts7ZDMfCyq593DQSiKFZ-BnfqdsIk9cbX3x5s9X1UOuUR-PujLBGgxRLaQX9xs2ZtLjL3P-Fzt1YIo2K-Bw" />
+						</div>
+					</div>
+					<!-- Exp 2 -->
+					<div
+						class="relative flex flex-col md:flex-row-reverse items-center justify-between group">
+						<div class="md:w-[45%] mb-8 md:mb-0">
+							<div
+								class="glass-panel p-8 rounded-xl neon-underglow-secondary group-hover:border-secondary/50 transition-all">
+								<span
+									class="font-code-sm text-code-sm text-secondary mb-2 block"
+									>Mar 2019 — Dec 2021</span
+								>
+								<h3 class="font-headline-md text-headline-md text-on-surface">
+									Full Stack Developer
+								</h3>
+								<p class="font-code-sm text-code-sm text-primary mb-4">
+									CloudStream Interactive
+								</p>
+								<p class="font-body-md text-body-md text-on-surface-variant">
+									Developed real-time collaborative features using WebSockets.
+									Implemented a design system that scaled across 12 distinct
+									product lines.
+								</p>
+							</div>
+						</div>
+						<div
+							class="absolute left-[-8px] md:left-1/2 w-4 h-4 rounded-full bg-secondary border-4 border-surface -translate-x-1/2 z-10 hidden md:block"></div>
+						<div class="md:w-[45%] text-left hidden md:block">
+							<img
+								class="w-full h-48 object-cover rounded-xl opacity-40 grayscale hover:grayscale-0 transition-all duration-500"
+								data-alt="A close-up view of a high-resolution monitor displaying complex lines of code in a dark mode IDE with vibrant syntax highlighting in blue, green, and purple. The scene is set in a dimly lit developer workspace with a soft bokeh effect in the background, creating a mood of focused technical expertise and modern software engineering. The aesthetic is sharp, clean, and utilitarian."
+								src="https://lh3.googleusercontent.com/aida-public/AB6AXuALSeOlPUzz8aBvnJTrelCWxl61tCECUEsfJt_yqhU8Rr4kNreSIskkyLiBjuYS39fSDdzb3othv5Y7Xh1IvmOu4XyMKkeuIH__z7mgoKcCD5rMjKiAGriT8I7pqxp9dXJZNMlMMDb_iDyezjXxsXfFWMRwhvGGvWoiw1AOnfwgaR8GB0trzkQjHOXvh3E5YNj2fRJrgk1IvyNNLRVrYHTDFYlhnGzAMPNdc_DChG6aGNiVDgsvzNaeuAtvsf54A5T-rQQ8_uggaA" />
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Technical Toolkit (Bento Grid) -->
+			<section class="space-y-16">
+				<div class="text-center space-y-4">
+					<h2 class="font-display-lg text-headline-md text-on-surface">
+						Technical Toolkit
+					</h2>
+					<p class="font-code-sm text-code-sm text-outline">
+						LEVELS DEFINED BY PRODUCTION-READY PROFICIENCY
+					</p>
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+					<!-- Large Feature Card -->
+					<div
+						class="md:col-span-2 lg:col-span-2 glass-panel p-8 rounded-xl space-y-6 flex flex-col justify-between">
+						<div>
+							<div class="flex items-center gap-3 mb-4">
+								<span class="material-symbols-outlined text-primary text-3xl"
+									>developer_board</span
+								>
+								<h3 class="font-headline-md text-headline-md text-on-surface">
+									Frontend Architecture
+								</h3>
+							</div>
+							<p class="font-body-md text-body-md text-on-surface-variant">
+								Mastery in building complex SPAs using React, Next.js, and
+								TypeScript. Expert in state management and performance
+								optimization.
+							</p>
+						</div>
+						<div class="space-y-4">
+							<div class="flex justify-between items-end">
+								<span class="font-code-sm text-code-sm text-on-surface"
+									>React Ecosystem</span
+								>
+								<span class="font-code-sm text-code-sm text-primary">98%</span>
+							</div>
+							<div
+								class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+								<div class="bg-primary h-full w-[98%]"></div>
+							</div>
+						</div>
+					</div>
+					<!-- Skill Card -->
+					<div
+						class="glass-panel p-6 rounded-xl space-y-4 hover:border-secondary/30 transition-all">
+						<div class="flex items-center justify-between">
+							<span class="material-symbols-outlined text-secondary"
+								>database</span
+							>
+							<span class="font-code-sm text-code-sm text-secondary"
+								>ADVANCED</span
+							>
+						</div>
+						<h4 class="font-headline-md text-[20px] text-on-surface">
+							Backend &amp; DB
+						</h4>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-secondary/5 text-secondary"
+								>Node.js</span
+							>
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-secondary/5 text-secondary"
+								>PostgreSQL</span
+							>
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-secondary/5 text-secondary"
+								>Redis</span
+							>
+						</div>
+					</div>
+					<!-- Skill Card -->
+					<div
+						class="glass-panel p-6 rounded-xl space-y-4 hover:border-primary/30 transition-all">
+						<div class="flex items-center justify-between">
+							<span class="material-symbols-outlined text-primary">cloud</span>
+							<span class="font-code-sm text-code-sm text-primary"
+								>PROFICIENT</span
+							>
+						</div>
+						<h4 class="font-headline-md text-[20px] text-on-surface">
+							DevOps &amp; Cloud
+						</h4>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-primary/5 text-primary"
+								>AWS</span
+							>
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-primary/5 text-primary"
+								>Docker</span
+							>
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-primary/5 text-primary"
+								>CI/CD</span
+							>
+						</div>
+					</div>
+					<!-- Medium Feature Card -->
+					<div
+						class="md:col-span-1 lg:col-span-2 glass-panel p-6 rounded-xl flex items-center gap-6">
+						<div class="bg-surface-container-highest p-4 rounded-lg">
+							<span class="material-symbols-outlined text-secondary text-4xl"
+								>terminal</span
+							>
+						</div>
+						<div class="space-y-1">
+							<h4 class="font-headline-md text-[20px] text-on-surface">
+								System Design
+							</h4>
+							<p class="font-body-md text-body-md text-on-surface-variant">
+								Architecting scalable systems with low latency and high
+								availability.
+							</p>
+						</div>
+					</div>
+					<!-- Skill Card -->
+					<div
+						class="glass-panel p-6 rounded-xl space-y-4 hover:border-secondary/30 transition-all">
+						<div class="flex items-center justify-between">
+							<span class="material-symbols-outlined text-secondary"
+								>auto_awesome</span
+							>
+							<span class="font-code-sm text-code-sm text-secondary">CORE</span>
+						</div>
+						<h4 class="font-headline-md text-[20px] text-on-surface">
+							AI &amp; ML Ops
+						</h4>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-secondary/5 text-secondary"
+								>Python</span
+							>
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-secondary/5 text-secondary"
+								>PyTorch</span
+							>
+						</div>
+					</div>
+					<!-- Skill Card -->
+					<div
+						class="glass-panel p-6 rounded-xl space-y-4 hover:border-primary/30 transition-all">
+						<div class="flex items-center justify-between">
+							<span class="material-symbols-outlined text-primary"
+								>palette</span
+							>
+							<span class="font-code-sm text-code-sm text-primary"
+								>ADVANCED</span
+							>
+						</div>
+						<h4 class="font-headline-md text-[20px] text-on-surface">
+							UI/UX Design
+						</h4>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-primary/5 text-primary"
+								>Figma</span
+							>
+							<span
+								class="px-2 py-1 rounded-sm border border-outline-variant/30 font-code-sm text-[12px] bg-primary/5 text-primary"
+								>Tailwind</span
+							>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- Footer -->
+		<footer
+			class="flex flex-col md:flex-row justify-between items-center py-margin-mobile px-margin-desktop w-full border-t border-outline-variant/20 bg-surface-container-lowest font-code-sm text-code-sm">
+			<div
+				class="max-w-container-max mx-auto w-full px-margin-desktop py-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+				<div class="md:col-span-2 space-y-6">
+					<div
+						class="font-display-lg text-headline-md tracking-tighter text-on-surface">
+						Jet Code
+					</div>
+					<div class="text-secondary">
+						© 2024 Jet Code. Engineered with precision.
+					</div>
+					<div class="flex flex-wrap gap-4 text-outline">
+						<a class="hover:text-primary transition-colors" href="#"
+							>Terms of Use</a
+						>
+						<span>|</span>
+						<a class="hover:text-primary transition-colors" href="#"
+							>Privacy Policy</a
+						>
+					</div>
+				</div>
+				<div class="md:col-span-2">
+					<h4
+						class="text-on-surface font-bold mb-6 uppercase tracking-widest text-xs">
+						Connect
+					</h4>
+					<div class="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-8">
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+							</svg>
+							Facebook
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+								<path
+									d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+								<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+							</svg>
+							Instagram
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<line x1="4" x2="20" y1="9" y2="9"></line>
+								<line x1="4" x2="20" y1="15" y2="15"></line>
+								<line x1="10" x2="8" y1="3" y2="21"></line>
+								<line x1="16" x2="14" y1="3" y2="21"></line>
+							</svg>
+							TikTok
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+							</svg>
+							Pinterest
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+							</svg>
+							Twitter
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.11 1 12 1 12s0 3.89.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.89 23 12 23 12s0-3.89-.46-5.58z"></path>
+								<polygon
+									points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>
+							</svg>
+							YouTube
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+							</svg>
+							GitHub
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#">
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								viewbox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+								<rect height="12" width="4" x="2" y="9"></rect>
+								<circle cx="4" cy="4" r="2"></circle>
+							</svg>
+							LinkedIn
+						</a>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#"
+							>Source Code</a
+						>
+						<a
+							class="flex items-center gap-2 text-outline hover:text-secondary transition-colors"
+							href="#"
+							>Status</a
+						>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script src="../public/js/app.js"></script>
+	</body>
+</html>
