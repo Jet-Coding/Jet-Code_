@@ -69,8 +69,8 @@ const portfolioData = {
 			link: "#",
 		},
 		{
-			year: "2025",
-			system: "NEXUS COSYSTEM",
+			year: "2024",
+			system: "NEXUS ECOSYSTEM",
 			title: "SaaS Enterprise Analytics Engine",
 			desc: "High-performance data management processing network handling real-time analytical evaluation clusters on internal asset flows.",
 			img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
