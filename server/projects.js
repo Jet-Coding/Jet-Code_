@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // 1. Mock Database Source (You can hook your MySQL connection pool directly here)
-const portfolioData = {
+/*const portfolioData = {
 	languages: [
 		{
 			name: "JavaScript",
@@ -101,7 +101,7 @@ const portfolioData = {
 			readTime: "9 MIN READ",
 		},
 	],
-};
+}; */
 
 // 2. REST Endpoints
 app.get("/api/languages", (req, res) => res.json(portfolioData.languages));
